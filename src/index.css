@@ -13,10 +13,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
   
   body {
-    @apply bg-white text-brand-dark font-sans antialiased;
+    @apply bg-brand-dark text-brand-dark font-sans antialiased overflow-x-hidden;
+  }
+
+  #root {
+    @apply min-h-dvh overflow-x-hidden;
   }
 }
 

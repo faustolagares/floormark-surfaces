@@ -227,6 +227,13 @@ function Nav({ onOpenQuote }: { onOpenQuote: () => void }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   const Logo = () => (
     <Link to="/" className="flex items-center gap-2">
       <img src="/logo.png" alt="FloorMark Surfaces Logo" className="h-10 w-auto object-contain" referrerPolicy="no-referrer" />
@@ -234,7 +241,7 @@ function Nav({ onOpenQuote }: { onOpenQuote: () => void }) {
   );
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-brand-dark/95 backdrop-blur-sm py-3 border-b border-white/10' : 'bg-transparent py-3'}`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-brand-dark/95 backdrop-blur-sm py-3 border-b border-white/10' : 'bg-brand-dark/95 md:bg-transparent py-3'}`}>
       <div className="container-custom flex items-center justify-between">
         <Logo />
 
@@ -303,8 +310,15 @@ function Nav({ onOpenQuote }: { onOpenQuote: () => void }) {
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(true)}>
-          <Menu />
+        <button 
+          type="button"
+          aria-label="Open navigation menu"
+          aria-controls="mobile-navigation"
+          aria-expanded={mobileMenuOpen}
+          className="md:hidden flex h-11 w-11 items-center justify-center rounded-sm border border-white/10 bg-brand-dark/80 text-white"
+          onClick={() => setMobileMenuOpen(true)}
+        >
+          <Menu className="h-7 w-7" />
         </button>
       </div>
 
@@ -312,15 +326,23 @@ function Nav({ onOpenQuote }: { onOpenQuote: () => void }) {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div 
+            id="mobile-navigation"
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
-            className="fixed inset-0 bg-brand-dark z-[60] flex flex-col"
+            className="fixed inset-0 bg-brand-dark z-100 min-h-dvh flex flex-col overflow-y-auto"
           >
             <div className="py-4 md:py-6 border-b border-white/5">
               <div className="container-custom flex items-center justify-between">
                 <Logo />
-                <button className="text-white" onClick={() => setMobileMenuOpen(false)}><X className="w-8 h-8" /></button>
+                <button 
+                  type="button"
+                  aria-label="Close navigation menu"
+                  className="flex h-11 w-11 items-center justify-center rounded-sm text-white"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <X className="w-8 h-8" />
+                </button>
               </div>
             </div>
             
