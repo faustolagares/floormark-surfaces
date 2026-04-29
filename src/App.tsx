@@ -433,7 +433,7 @@ function Hero({ onOpenQuote }: { onOpenQuote: () => void }) {
             <div className="hidden lg:block w-1/3 bg-brand-dark" />
             <div className="w-full lg:w-2/3 relative h-full">
               <img 
-                src="/regenerated_image_1777477925461.png" 
+                src="/regenerated_image_1777477846583.png" 
                 alt="Expert Epoxy Garage Floor"
                 className="mt-0 w-full h-full object-cover opacity-90 transition-all duration-1000"
                 referrerPolicy="no-referrer"
